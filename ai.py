@@ -205,8 +205,9 @@ async def call_gcc(ctx):
         print("Assembly output complete!")
         print("Sending back to client!")
         with open('./usercode.s') as asm:
-            assembly = f"```{asm}```"
-        await ctx.send(assembly)
+            assembly = asm.read()
+        ao = f"```{assembly}```"
+        await ctx.send(ao)
 
 
 # command info: tells you about this bot
