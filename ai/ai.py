@@ -200,7 +200,7 @@ async def google_search(ctx, a):
 
 # command call_gcc: sends some c or c++ code to gcc/g++ to return it as x86 assembly code.
 @client.command()
-async def call_gcc(ctx):
+async def call_gpp(ctx):
     messagetext = ctx.message.content
     split = messagetext.replace('?call_gcc ```', '')
     if len(split) > 1:
@@ -239,6 +239,7 @@ async def help(ctx):
     embed.add_field(name="?info", value="Gives info regarding this servitor's development.", inline=False)
     embed.add_field(name="?help", value="Gives this message.", inline=False)
     embed.add_field(name="?greet", value="Same function as info, with the addition of a hello.", inline=False)
+    embed.add_field(name="?call_gpp", value="Sends a C/C++ code snippet to g++ to be returned as x86 Assembly. Must put code in a full code block with no lang specification.", inline=False)
     embed.add_field(name="?pythonhelp | ?pyhelp | ?ph", value="Fetches an article from the Python 3 docs.", inline=False)
     embed.add_field(name="?cpphelp", value="Fetches an article from the cppreference website.", inline=False)
     embed.add_field(name="?stackoverflowhelp | ?so", value="Fetches the top five most highly rated questions for a specific query.", inline=False)
