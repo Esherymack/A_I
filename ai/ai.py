@@ -221,7 +221,7 @@ async def call_gpp(ctx):
         if (len(ao) < 1020):
             await ctx.send(ao)
         else:
-            await ctx.send(r"./usercode.s", filename="usercode.s")
+            await ctx.send(r"./usercode.s")
 
 # command info: tells you about this bot
 @client.command()
