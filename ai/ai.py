@@ -218,12 +218,13 @@ async def call_gpp(ctx):
         with open('./usercode.s') as asm:
             assembly = asm.read()
         ao = f"```x86asm\n{assembly}\n```"
-        if (len(ao) < 2000):
-            await ctx.send(ao)
+        if (len(ao) == 2):
+            await ctx.send("There seems to be an error with your code; it doesn't compile.")
         elif (len(ao) >= 2000):
             await ctx.send("The assembly code was too large, so here's the file.", file=discord.File("./usercode.s"))
-        elif(len(ao) == 22):
-            await ctx.send("There seems to be an error with your code; it doesn't compile.")
+        elif(len(ao) < 2000 and len(ao) > 22):
+            await ctx.send(ao)
+
 
 # command info: tells you about this bot
 @client.command()
