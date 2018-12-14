@@ -200,7 +200,7 @@ async def call_gcc(ctx):
         f.write(codesnippet)
         f.close()
         print("Calling GCC for assembly!")
-        subprocess.run(["gcc -S", "./usercode.cpp"])
+        subprocess.run(["gcc -S ./usercode.cpp"])
 
 
 # command info: tells you about this bot
