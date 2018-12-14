@@ -1,5 +1,6 @@
-from discord.ext.commands import Bot
 import discord
+from discord.ext.commands import Bot
+from discord.ext import commands
 import requests
 import datetime as dt
 from bs4 import BeautifulSoup
@@ -199,7 +200,7 @@ async def google_search(ctx, a):
     await ctx.send(embed=embed)
 
 # command call_gcc: sends some c or c++ code to gcc/g++ to return it as x86 assembly code.
-@client.command()
+@client.command(pass_context = True)
 async def call_gpp(ctx):
     messagetext = ctx.message.content
     split = messagetext.replace('?call_gpp ```', '')
@@ -220,7 +221,8 @@ async def call_gpp(ctx):
         if (len(ao) < 1020):
             await ctx.send(ao)
         else:
-            await ctx.send_file(ctx.message.channel, r"./usercode.s", filename="usercode.s", content="The assembly was too long to display here.")
+            area = ctx.message.channel
+            await bot.send_file(area, "./usercode.s", filename="usercode", content="The assembly was too long to display, so here's the file.")
 
 # command info: tells you about this bot
 @client.command()
