@@ -211,7 +211,7 @@ async def call_gcc(ctx):
         f.close()
         cmd = "usercode.cpp"
         print("Calling GCC for assembly!")
-        subprocess.call(["gcc", "-S", "./usercode.cpp"])
+        subprocess.call(["g++", "-S", "./usercode.cpp"])
         print("Assembly output complete!")
         print("Sending back to client!")
         with open('./usercode.s') as asm:
