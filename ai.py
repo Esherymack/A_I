@@ -206,11 +206,7 @@ async def call_gcc(ctx):
         print("Sending back to client!")
         with open('./usercode.s') as asm:
             assembly = asm.read()
-        ao = f"""
-        ```x86asm
-        {assembly}
-        ```
-        """
+        ao = f"```x86asm\n{assembly}\n```"
         await ctx.send(ao)
 
 
