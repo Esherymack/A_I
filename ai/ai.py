@@ -220,8 +220,10 @@ async def call_gpp(ctx):
         ao = f"```x86asm\n{assembly}\n```"
         if (len(ao) < 2000):
             await ctx.send(ao)
-        else:
+        elif (len(ao) >= 2000):
             await ctx.send("The assembly code was too large, so here's the file.", file=discord.File("./usercode.s"))
+        else:
+            await ctx.send("There seems to have been an error.")
 
 # command info: tells you about this bot
 @client.command()
