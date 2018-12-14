@@ -200,7 +200,7 @@ async def google_search(ctx, a):
     await ctx.send(embed=embed)
 
 # command call_gcc: sends some c or c++ code to gcc/g++ to return it as x86 assembly code.
-@client.command(pass_context = True)
+@client.command()
 async def call_gpp(ctx):
     messagetext = ctx.message.content
     split = messagetext.replace('?call_gpp ```', '')
@@ -221,8 +221,7 @@ async def call_gpp(ctx):
         if (len(ao) < 1020):
             await ctx.send(ao)
         else:
-            area = ctx.message.channel
-            await ctx.send_file(area, "./usercode.s", filename="usercode", content="The assembly was too long to display, so here's the file.")
+            await client.send_file(client.get_server('520382992779182090').default_channel, "./usercode.s")
 
 # command info: tells you about this bot
 @client.command()
