@@ -202,7 +202,7 @@ async def google_search(ctx, a):
 @client.command()
 async def call_gpp(ctx):
     messagetext = ctx.message.content
-    split = messagetext.replace('?call_gcc ```', '')
+    split = messagetext.replace('?call_gpp ```', '')
     if len(split) > 1:
         codesnippet = split.replace('```', '')
         print("Creating C++ file...")
