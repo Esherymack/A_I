@@ -217,8 +217,10 @@ async def call_gpp(ctx):
         with open('./usercode.s') as asm:
             assembly = asm.read()
         ao = f"```x86asm\n{assembly}\n```"
-        await ctx.send(ao)
-
+        if (len(ao) < 1020):
+            await ctx.send(ao)
+        else:
+            await ctx.send_file(message.channel, filename="usercode.s")
 
 # command info: tells you about this bot
 @client.command()
