@@ -9,15 +9,16 @@ from googlesearch import search
 import re
 import subprocess
 
+# set bot prefix
 BOT_PREFIX = ("?")
 
+# fetch some tokens - these are in the gitignore, make your own
 with open ('./token') as tf:
     TOKEN = tf.read().strip()
-
 with open('./wolfram_app_id') as wai:
     appID = wai.read().strip()
 
-# client/startup
+# client/startup for discord and wolfram
 client = Bot(command_prefix=BOT_PREFIX)
 int_client = wolframalpha.Client(appID)
 
@@ -37,6 +38,7 @@ async def on_ready():
     print("Bot online!")
     print("----------")
 
+# why'd i add this?
 @client.command()
 async def greet(ctx):
     await ctx.send("Hello!")
@@ -68,6 +70,7 @@ async def pythonhelp(ctx):
         # search the site
         # the python docs site uses some javascript stuff to dynamically load search results
         # as a result BeautifulSoup threw a royal fit and I can't pin down any appropriate tags
+        # but really, you just need the article, not the search page
         await ctx.send(f"The top result for that search is: https://docs.python.org/3/library/{messagetext}.html")
 
 
@@ -91,24 +94,28 @@ async def cpphelp(ctx):
         # Return the query
         await ctx.send(f"The top result for that search is: {cpp_result}")
 
-# command stackoverflowhelp: searches stackoverflow for help
-# This function is more or less the same as the cppreference one
-# see that one's documentation for this one
+# command stackoverflowhelp: searches stackoverflow for assistance
 @client.command(aliases=["so"])
 async def stackoverflowhelp(ctx):
+    # this is the search token
     messagetext = ctx.message.content
     split = messagetext.split(' ')
     if len(split) > 1:
         messagetext = split[1]
+        # the page to scrape
         so_search = f'https://stackoverflow.com/questions/tagged/{messagetext}?sort=votes&pageSize=15'
         site = requests.get(so_search)
+        # the scrape in question
         content = BeautifulSoup(site.content, 'html.parser')
         questions = content.select('.question-summary')
         links = []
+        #grab the hyperlinks
         for question in questions:
             url = question.select( '.question-hyperlink')[0].get('href')
             links.append(url)
+        # boris and matt insist the below works, but it breaks things right now and I'm Lazy(TM)
         #links = link(map(lambda question: question.select( '.question-hyperlink'), questions))
+        #output results as embed
         embed = discord.Embed(title = f"Top five results for {messagetext}:", color=0x00cc99)
         for i in range(0, 5):
             embed.add_field(name=i, value=f'https://stackoverflow.com{links[i]}')
@@ -183,12 +190,15 @@ def resolveListOrDict(variable):
 # command google runs google search.
 @client.command(aliases=['google', 'g'])
 async def google_search(ctx, a):
+    # couldn't be simpler - grab the query, throw it at the google lib
     query = a
+    # and output it in an embed all pretty-like
     embed = discord.Embed(title=f"Search results for \"{query}\":", color=0x00cc99)
     for j in search(query, tld="co.in", num=5, stop=1, pause=2):
         embed.add_field(name=f"Result: ", value=j, inline=False)
     await ctx.send(embed=embed)
 
+# command call_gcc: sends some c or c++ code to gcc/g++ to return it as x86 assembly code.
 @client.command()
 async def call_gcc(ctx):
     messagetext = ctx.message.content
