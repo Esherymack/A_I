@@ -220,7 +220,7 @@ async def call_gpp(ctx):
         if (len(ao) < 1020):
             await ctx.send(ao)
         else:
-            await ctx.send_file(message.channel, filename="usercode.s")
+            await bot.send_file(ctx.message.channel, r"./usercode.s", filename="usercode.s", content="The assembly was too long to display here.")
 
 # command info: tells you about this bot
 @client.command()
