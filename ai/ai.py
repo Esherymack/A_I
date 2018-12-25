@@ -227,7 +227,7 @@ async def call_gpp(ctx):
 # command info: tells you about this bot
 @client.command()
 async def info(ctx):
-    embed = discord.Embed(title="An Aggravating Intelligence", description="An Aggravating Intelligence", color=0x00cc99)
+    embed = discord.Embed(title="Abraxas", description="Helps debug.", color=0x00cc99)
     embed.add_field(name="Version", value="1.0")
     embed.add_field(name="Author", value="Esherymack | Madison Tibbett")
     embed.add_field(name="Server count", value=f"{len(client.guilds)}")
@@ -250,6 +250,7 @@ async def help(ctx):
     embed.add_field(name="?wiki", value="Searches Wikipedia for an article.", inline=False)
     embed.add_field(name="?wolfram | ?wolf", value="Queries Wolfram|Alpha.", inline=False)
     embed.add_field(name="?google", value="Searches google for a query; returns a number of results.", inline=False)
+    embed.add_field(name="?shamefurdispray | ?shame", value="Shame. Shame. Shame.", inline=False)
     await ctx.send(embed=embed)
 
 client.loop.create_task(on_ready())
